@@ -11,7 +11,7 @@ const getBooks = async () => {
     TableName: "books",
   };
 
-const get
+//const get
 
   try {
     const results = await client.send(new ScanCommand(params));
