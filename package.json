@@ -20,5 +20,8 @@
     "apollo-server-lambda": "^2.19.1",
     "graphql": "^15.4.0",
     "graphql-type-json": "^0.3.2"
+  },
+  "devDependencies": {
+    "serverless-offline": "^8.2.0"
   }
 }

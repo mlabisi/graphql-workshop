@@ -17,6 +17,8 @@ functions:
           path: graphql
           method: get
           cors: true
+plugins:
+  - serverless-offline
 resources:
   Resources:
     GatewayResponseDefault4XX:
