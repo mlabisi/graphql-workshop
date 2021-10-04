@@ -1,0 +1,34 @@
+type Address {
+    streetNumber: String
+    streetName: String
+}
+
+type MenuItem {
+    name: String
+    price: Float
+}
+
+type HoursItem {
+    openTime: String
+    closeTime: String
+}
+
+type Shop {
+    address: Address
+    menu: [MenuItem]
+    hours: HoursItem
+}
+
+type RootQuery {
+    shops: [Shop]
+    items: [MenuItem]
+}
+
+type RootMutation {
+    addMenuItem(name: String, price: Float): MenuItem
+}
+
+schema {
+    query: RootQuery
+    mutation: RootMutation
+}
