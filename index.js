@@ -18,7 +18,7 @@ const getAddresses = async () => {
           const results = await client.send(new ScanCommand(params));
           const addresses = [];
           results.Items.forEach((item) => {
-            books.push(unmarshall(item));
+            addresses.push(unmarshall(item));
           });
           return addresses;
         } catch (err) {
@@ -36,7 +36,7 @@ const getMenuItems = async () => {
           const results = await client.send(new ScanCommand(params));
           const menuItems = [];
           results.Items.forEach((item) => {
-            books.push(unmarshall(item));
+            menuItems.push(unmarshall(item));
           });
           return menuItems;
         } catch (err) {
@@ -125,14 +125,43 @@ const resolvers = {
   RootQuery: {
     shops: () => {
         return shops;
-//      return getAddresses();
     },
     items: () => {
         return menuItems;
 //      return getMenuItems();
     },
   },
+  Shop: {
+          address(parent) {
+              return addresses.filter(addr => addr.id === parent.id);
+          }
+  },
+  Address: {
+    streetNumber(parent) {
+        return addresses.filter(addr => addr.id === parent.id);
+    },
+    streetName(parent) {
+        return addresses.filter(addr => addr.id === parent.id);
+    }
+  },
+  HoursItem: {
+    openTime(parent) {
+        return hoursItems.filter(hoursItem => hoursItems.id === parent.id);
+    },
+    closeTime(parent) {
+         return hoursItems.filter(hoursItem => hoursItems.id === parent.id);
+    }
+  }
 };
+
+//mutation CreateMenuItem {
+//  addMenuItem(name: "Butterbeer", price: "4.99") {
+//    name
+//    price
+//  }
+//}
+
+
 
 // todo: switch playground to graphiql
 const server = new ApolloServer({
