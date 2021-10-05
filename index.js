@@ -1,5 +1,6 @@
 // needed to deploy locally
 //const { ApolloServer, gql } = require("apollo-server");
+//import { gql, useMutation } from '@apollo/client';
 const { ApolloServer, gql } = require("apollo-server-lambda");
 const { unmarshall } = require("@aws-sdk/util-dynamodb");
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
@@ -130,40 +131,80 @@ const resolvers = {
         return menuItems;
 //      return getMenuItems();
     },
+    item: (id) => {
+        return menuItems.find(item => {return item.id === id});
+    },
+    item: (name) => {
+            return menuItems.find(item => {return item.name === name});
+        }
   },
+
+  RootMutation: {
+    addMenuItem: async (_, { name, price }, { dataSources }) => {
+      // calling data store to save/create item
+      // return created object back
+      const item = { "id": menuItems.length+1,"name": name, "price": price };
+      menuItems.push(item);
+      return item;
+    },
+    addShop: async (_, { streetNumber, streetName }, { dataSources }) => {
+        // create new address
+        const newAddress = {
+            "id": addresses.length+1,
+            "streetNumber": streetNumber,
+            "streetName": streetName
+        };
+        addresses.push(newAddress);
+
+        const newShop = {
+            "id": menuItems.length+1,
+            "addressId": newAddress.id,
+//            "menuItemIds": [],
+//            "hoursIds":
+        };
+        shops.push(newShop);
+
+        return newShop;
+    }
+  },
+
   Shop: {
           address(parent) {
-              return addresses.filter(addr => addr.id === parent.id);
+            return addresses.filter(addr => addr.id === parent.id)[0];
+          },
+          menu(parent) {
+            return menuItems.filter(item => item.id === parent.id);
+          },
+          hours(parent) {
+            return hoursItems.filter(item => item.id === parent.id);
           }
   },
   Address: {
     streetNumber(parent) {
-        return addresses.filter(addr => addr.id === parent.id);
+        return addresses.filter(addr => addr.id === parent.id)[0].streetNumber;
     },
     streetName(parent) {
-        return addresses.filter(addr => addr.id === parent.id);
+        return addresses.filter(addr => addr.id === parent.id)[0].streetName;
     }
   },
   HoursItem: {
     openTime(parent) {
-        return hoursItems.filter(hoursItem => hoursItems.id === parent.id);
+        return hoursItems.filter(hoursItem => hoursItems.id === parent.id)[0].openTime;
     },
     closeTime(parent) {
-         return hoursItems.filter(hoursItem => hoursItems.id === parent.id);
+         return hoursItems.filter(hoursItem => hoursItems.id === parent.id)[0].closeTime;
+    }
+  },
+  MenuItem: {
+    name(parent) {
+        return menuItems.filter(item => item.id === parent.id)[0].name;
+    },
+    price(parent) {
+        return menuItems.filter(item => item.id === parent.id)[0].price;
     }
   }
 };
 
-//mutation CreateMenuItem {
-//  addMenuItem(name: "Butterbeer", price: "4.99") {
-//    name
-//    price
-//  }
-//}
-
-
-
-// todo: switch playground to graphiql
 const server = new ApolloServer({
     typeDefs,
     resolvers,
