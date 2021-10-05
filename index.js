@@ -1,6 +1,8 @@
-// needed to deploy locally
-const {ApolloServer, gql} = require("apollo-server");
-// const { ApolloServer, gql } = require("apollo-server-lambda");
+// LOCAL
+// const {ApolloServer, gql} = require("apollo-server");
+// SERVERLESS
+const { ApolloServer, gql } = require("apollo-server-lambda");
+
 const {unmarshall} = require("@aws-sdk/util-dynamodb");
 const {DynamoDBClient, ScanCommand} = require("@aws-sdk/client-dynamodb");
 
@@ -228,16 +230,16 @@ const server = new ApolloServer({
 });
 
 // SERVERLESS
-// const handler = server.createHandler({
-//   cors: {
-//     origin: '*',
-//     credentials: true,
-//   },
-// });
-//
-// exports.graphqlHandler = handler;
+const handler = server.createHandler({
+  cors: {
+    origin: '*',
+    credentials: true,
+  },
+});
+
+exports.graphqlHandler = handler;
 
 // LOCAL
-server.listen().then(({url}) => {
-    console.log(`🚀  Server ready at ${url}`);
-});
+// server.listen().then(({url}) => {
+//     console.log(`🚀  Server ready at ${url}`);
+// });
