@@ -132,8 +132,11 @@ const resolvers = {
 //      return getMenuItems();
     },
     item: (id) => {
-        return menuItems.filter(item => item.id === id)[0];
-    }
+        return menuItems.find(item => {return item.id === id});
+    },
+    item: (name) => {
+            return menuItems.find(item => {return item.name === name});
+        }
   },
 
   RootMutation: {
