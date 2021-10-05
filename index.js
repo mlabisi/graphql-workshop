@@ -196,26 +196,26 @@ const resolvers = {
     },
     Address: {
         streetNumber(parent) {
-            return (parent[0] ?? parent).streetNumber;
+            return (Array.isArray(parent) ? parent[0] : parent).streetNumber;
         },
         streetName(parent) {
-            return (parent[0] ?? parent).streetName;
+            return (Array.isArray(parent) ? parent[0] : parent).streetName;
         }
     },
     HoursItem: {
         openTime(parent) {
-            return (parent[0] ?? parent).openTime;
+            return (Array.isArray(parent) ? parent[0] : parent).openTime;
         },
         closeTime(parent) {
-            return (parent[0] ?? parent).closeTime;
+            return (Array.isArray(parent) ? parent[0] : parent).closeTime;
         }
     },
     MenuItem: {
         name(parent) {
-            return (parent[0] ?? parent).name;
+            return (Array.isArray(parent) ? parent[0] : parent).name;
         },
         price(parent) {
-            return (parent[0] ?? parent).price;
+            return (Array.isArray(parent) ? parent[0] : parent).price;
         }
     }
 };
