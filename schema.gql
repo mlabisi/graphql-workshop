@@ -26,13 +26,12 @@ type Shop {
 type RootQuery {
     shops: [Shop]
     items: [MenuItem]
-#    item(name: String): MenuItem
-    item(id: ID, name: String): MenuItem
+    item(name: String, id: ID): MenuItem
 }
 
 type RootMutation {
     addMenuItem(name: String, price: Float): MenuItem
-    addShop(streetNumber: Int, streetName: String): Shop
+    addShop(streetNumber: String, streetName: String): Shop
 
 }
 
