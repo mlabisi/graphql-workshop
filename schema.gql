@@ -1,19 +1,23 @@
 type Address {
+    id: ID
     streetNumber: String
     streetName: String
 }
 
 type MenuItem {
+    id: ID
     name: String
     price: Float
 }
 
 type HoursItem {
+    id: ID
     openTime: String
     closeTime: String
 }
 
 type Shop {
+    id: ID
     address: Address
     menu: [MenuItem]
     hours: HoursItem
@@ -22,10 +26,14 @@ type Shop {
 type RootQuery {
     shops: [Shop]
     items: [MenuItem]
+#    item(name: String): MenuItem
+    item(id: ID): MenuItem
 }
 
 type RootMutation {
     addMenuItem(name: String, price: Float): MenuItem
+    addShop(streetNumber: Int, streetName: String): Shop
+
 }
 
 schema {
