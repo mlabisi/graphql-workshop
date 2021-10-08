@@ -1,12 +1,22 @@
 // LOCAL
 // const {ApolloServer, gql} = require("apollo-server");
 // SERVERLESS
-const { ApolloServer, gql } = require("apollo-server-lambda");
+const {
+    ApolloServer,
+    gql
+} = require("apollo-server-lambda");
 
-const {unmarshall} = require("@aws-sdk/util-dynamodb");
-const {DynamoDBClient, ScanCommand} = require("@aws-sdk/client-dynamodb");
+const {
+    unmarshall
+} = require("@aws-sdk/util-dynamodb");
+const {
+    DynamoDBClient,
+    ScanCommand
+} = require("@aws-sdk/client-dynamodb");
 
-const client = new DynamoDBClient({region: "us-east-1"});
+const client = new DynamoDBClient({
+    region: "us-east-1"
+});
 
 const fs = require('fs')
 const typeDefs = fs.readFileSync("./schema.gql").toString("utf-8");
@@ -47,8 +57,7 @@ const getMenuItems = async () => {
     }
 };
 
-const hoursItems = [
-    {
+const hoursItems = [{
         "id": 1,
         "openTime": "9 AM",
         "closeTime": "8 PM"
@@ -65,17 +74,16 @@ const hoursItems = [
     }
 ];
 
-const shops = [
-    {
+const shops = [{
         "id": 1,
         "addressId": 1,
-        "menuItemIds": [2, 3],
+        "menuItemIds": [2, 3, 10, 12, 15, 17],
         "hoursId": 1
     },
     {
         "id": 2,
         "addressId": 2,
-        "menuItemIds": [1, 3],
+        "menuItemIds": [1, 3, 4, 5, 6, 7],
         "hoursId": 2
     },
     {
@@ -83,11 +91,52 @@ const shops = [
         "addressId": 3,
         "menuItemIds": [1, 2],
         "hoursId": 3
+    },
+    {
+        "id": 4,
+        "addressId": 4,
+        "menuItemIds": [1, 2, 7, 8, 9, 11, 13, 14, 15],
+        "hoursId": 3
+    },
+    {
+        "id": 5,
+        "addressId": 5,
+        "menuItemIds": [11, 14, 16],
+        "hoursId": 3
+    },
+    {
+        "id": 6,
+        "addressId": 6,
+        "menuItemIds": [10, 2, 5, 13],
+        "hoursId": 3
+    },
+    {
+        "id": 7,
+        "addressId": 7,
+        "menuItemIds": [14, 12, 17],
+        "hoursId": 3
+    },
+    {
+        "id": 8,
+        "addressId": 8,
+        "menuItemIds": [1, 5, 4, 8, 11, 15, 14, 16, 17],
+        "hoursId": 3
+    },
+    {
+        "id": 9,
+        "addressId": 9,
+        "menuItemIds": [1, 3, 6, 9, 12, 13, 14, 16, 17],
+        "hoursId": 3
+    },
+    {
+        "id": 10,
+        "addressId": 10,
+        "menuItemIds": [1, 2, 4, 10, 12, 13, 14, 16, 17],
+        "hoursId": 3
     }
 ];
 
-const addresses = [
-    {
+const addresses = [{
         "id": 1,
         "streetNumber": "123",
         "streetName": "Java Way"
@@ -102,10 +151,44 @@ const addresses = [
         "streetNumber": "789",
         "streetName": "Machiatto Lane"
     },
+    {
+        "id": 4,
+        "streetNumber": "6",
+        "streetName": "Weasleys' Wizard Wheezes"
+    },
+    {
+        "id": 5,
+        "streetNumber": "43",
+        "streetName": "Madam Puddifoot's Tea Shop"
+    },
+    {
+        "id": 6,
+        "streetNumber": "333",
+        "streetName": "Three Broomsticks"
+    },
+    {
+        "id": 7,
+        "streetNumber": "912",
+        "streetName": "Hog's Head"
+    },
+    {
+            "id": 8,
+            "streetNumber": "12",
+            "streetName": "Elm Street"
+        },
+    {
+        "id": 9,
+        "streetNumber": "443",
+        "streetName": "Steamy Hallows"
+    },
+    {
+        "id": 10,
+        "streetNumber": "887",
+        "streetName": "Froopyland Juices"
+    }
 ];
 
-const menuItems = [
-    {
+const menuItems = [{
         "id": 1,
         "name": "Peppermint Latte",
         "price": 3.00
@@ -120,6 +203,71 @@ const menuItems = [
         "name": "Vanilla Latte",
         "price": 4.00
     },
+    {
+        "id": 4,
+        "name": "Pumpkin Juice",
+        "price": 3.65
+    },
+    {
+        "id": 5,
+        "name": "Unicorn Elixir",
+        "price": 14.00
+    },
+    {
+        "id": 6,
+        "name": "Zombie Brains Pour Over",
+        "price": 2.30
+    },
+    {
+        "id": 7,
+        "name": "Mermaid Legs Potion",
+        "price": 9.45
+    },
+    {
+        "id": 8,
+        "name": "Zombie Brains Pour Over",
+        "price": 2.30
+    },
+    {
+        "id": 10,
+        "name": "Bloody Caramel Macchiato",
+        "price": 7.40
+    },
+    {
+        "id": 11,
+        "name": "Ghoulish Irish Coffee",
+        "price": 3.80
+    },
+    {
+        "id": 12,
+        "name": "Red Eye Sambuca Coffee",
+        "price": 2.30
+    },
+    {
+        "id": 13,
+        "name": "Drunken Ghoul Coffee",
+        "price": 2.33
+    },
+    {
+        "id": 14,
+        "name": "Goblin Snot",
+        "price": 3.33
+    },
+    {
+        "id": 15,
+        "name": "Hog's Breath",
+        "price": 2.33
+    },
+    {
+        "id": 16,
+        "name": "Dead Man's Toe",
+        "price": 1.01
+    },
+    {
+        "id": 17,
+        "name": "Spider Eggs",
+        "price": 2.81
+    }
 ];
 
 // resolvers
@@ -130,9 +278,12 @@ const resolvers = {
         },
         items: () => {
             return menuItems;
-//      return getMenuItems();
+            //      return getMenuItems();
         },
-        item: (_, {name, id}) => {
+        item: (_, {
+            name,
+            id
+        }) => {
             if (name != null && id != null) {
                 return menuItems.find(item => {
                     return item.name === name && item.id == id
@@ -147,11 +298,25 @@ const resolvers = {
                 });
             }
 
+        },
+        shop: (_, {
+            id
+        }) => {
+            if (id != null) {
+                return shops.find(shop => {
+                    return shop.id == id
+                })
+            }
         }
     },
 
     RootMutation: {
-        addMenuItem: async (_, {name, price}, {dataSources}) => {
+        addMenuItem: async (_, {
+            name,
+            price
+        }, {
+            dataSources
+        }) => {
             // calling data store to save/create item
             // return created object back
             const item = {
@@ -162,7 +327,12 @@ const resolvers = {
             menuItems.push(item);
             return item;
         },
-        addShop: async (_, {streetNumber, streetName}, {dataSources}) => {
+        addShop: async (_, {
+            streetNumber,
+            streetName
+        }, {
+            dataSources
+        }) => {
             // create new address
             const newAddress = {
                 "id": addresses.length + 1,
@@ -225,16 +395,19 @@ const server = new ApolloServer({
     resolvers,
     playground: {
         endpoint: "/dev/graphql",
+        settings: {
+            'editor.theme': 'light',
+        }
     },
     introspection: true,
 });
 
 // SERVERLESS
 const handler = server.createHandler({
-  cors: {
-    origin: '*',
-    credentials: true,
-  },
+    cors: {
+        origin: '*',
+        credentials: true,
+    },
 });
 
 exports.graphqlHandler = handler;
