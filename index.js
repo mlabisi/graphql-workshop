@@ -96,13 +96,13 @@ const shops = [{
         "id": 4,
         "addressId": 4,
         "menuItemIds": [1, 2, 7, 8, 9, 11, 13, 14, 15],
-        "hoursId": 3
+        "hoursId": 1
     },
     {
         "id": 5,
         "addressId": 5,
         "menuItemIds": [11, 14, 16],
-        "hoursId": 3
+        "hoursId": 2
     },
     {
         "id": 6,
@@ -114,13 +114,13 @@ const shops = [{
         "id": 7,
         "addressId": 7,
         "menuItemIds": [14, 12, 17],
-        "hoursId": 3
+        "hoursId": 1
     },
     {
         "id": 8,
         "addressId": 8,
         "menuItemIds": [1, 5, 4, 8, 11, 15, 14, 16, 17],
-        "hoursId": 3
+        "hoursId": 2
     },
     {
         "id": 9,
@@ -132,7 +132,7 @@ const shops = [{
         "id": 10,
         "addressId": 10,
         "menuItemIds": [1, 2, 4, 10, 12, 13, 14, 16, 17],
-        "hoursId": 3
+        "hoursId": 1
     }
 ];
 
@@ -344,8 +344,8 @@ const resolvers = {
             const newShop = {
                 "id": shops.length + 1,
                 "addressId": newAddress.id,
-                "menuItemIds": [1, 2, 3],
-                "hoursId": 1
+                "menuItemIds": [Math.floor(Math.random() * menuItems.length) + 1, Math.floor(Math.random() * menuItems.length) + 1, Math.floor(Math.random() * menuItems.length) + 1],
+                "hoursId": Math.floor(Math.random() * hoursItems.length) + 1
             };
             shops.push(newShop);
 
@@ -358,10 +358,10 @@ const resolvers = {
             return addresses.filter(address => address.id === parent.id)[0];
         },
         menu(parent) {
-            return menuItems.filter(item => item.id === parent.id);
+            return menuItems.filter(item => parent.menuItemIds.includes(item.id));
         },
         hours(parent) {
-            return hoursItems.filter(item => item.id === parent.id);
+            return hoursItems.filter(item => item.id === parent.hoursId)[0];
         }
     },
     Address: {
@@ -374,10 +374,10 @@ const resolvers = {
     },
     HoursItem: {
         openTime(parent) {
-            return (Array.isArray(parent) ? parent[0] : parent).openTime;
+            return parent.openTime;
         },
         closeTime(parent) {
-            return (Array.isArray(parent) ? parent[0] : parent).closeTime;
+            return parent.closeTime;
         }
     },
     MenuItem: {
