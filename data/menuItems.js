@@ -180,7 +180,7 @@ const menuItems = [{
     },
     {
         "id": 37,
-        "name": "Water",
+        "name": "Water", // calories, nutritionInfo
         "price": 2.33
     },
     {

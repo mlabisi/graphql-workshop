@@ -8,21 +8,21 @@ const {
 const fs = require('fs')
 const typeDefs = fs.readFileSync("./schema.gql").toString("utf-8");
 
-///*
+/*
 // to deploy locally:
 const {
     ApolloServer,
     gql
 } = require("apollo-server");
-//*/
+*/
 
-/*
+///*
 // to deploy remotely via serverless:
 const {
     ApolloServer,
     gql
 } = require("apollo-server-lambda");
-*/
+//*/
 
 // resolvers
 const resolvers = {
@@ -52,12 +52,34 @@ const resolvers = {
             }
 
         },
-        shop: (_, {
+        shopOwners: () => {
+            return shopOwners;
+        },
+        shopOwner: (_, {
+            firstName,
             id
+        }) => {
+            if (id != null) {
+                return shopOwners.find(owner => {
+                    return owner.id == id
+                });
+            } else if (firstName != null) {
+                return shopOwners.find(owner => {
+                    return owner.firstName === firstName
+                });
+            }
+        },
+        shop: (_, {
+            id,
+            name
         }) => {
             if (id != null) {
                 return shops.find(shop => {
                     return shop.id == id
+                })
+            } else if (name != null) {
+                return shops.find(shop => {
+                    return shop.name === name
                 })
             }
         }
@@ -159,7 +181,7 @@ const server = new ApolloServer({
     introspection: true,
 });
 
-/*
+///*
 // to deploy remotely:
 const handler = server.createHandler({
     cors: {
@@ -169,14 +191,13 @@ const handler = server.createHandler({
 });
 
 exports.graphqlHandler = handler;
-*/
+//*/
 
 
-///*
+
 // to deploy locally:
-server.listen().then(({
-    url
-}) => {
-    console.log(`🚀  Server ready at ${url}`);
-});
-///*
+//server.listen().then(({
+//    url
+//}) => {
+//    console.log(`🚀  Server ready at ${url}`);
+//});

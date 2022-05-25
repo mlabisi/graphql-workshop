@@ -35,9 +35,11 @@ type Shop {
 
 type RootQuery {
     shops: [Shop]
+    shopOwners: [ShopOwner]
     items: [MenuItem]
     item(name: String, id: ID): MenuItem
     shop(id:ID!): Shop
+    shopOwner(id:ID, firstName: String): ShopOwner
 }
 
 type RootMutation {
