@@ -12,7 +12,22 @@ const addresses = [{
         "city": "New York City",
         "zipcode": 54321
     },
+    {
+        "id": 3,
+        "streetNumber": "6543",
+        "streetName": "Lightening Bug Lane",
+        "city": "Los Angeles",
+        "zipcode": 11111
+    },
+    {
+        "id": 3,
+        "streetNumber": "17",
+        "streetName": "Buckets Lane",
+        "city": "Minneapolis",
+        "zipcode": 57562
+    },
 ];
+
 
 module.exports = {
   addresses,

@@ -15,16 +15,11 @@ const shopOwners = [{
     },
     {
         "id": 4,
-        "firstName": "Candace",
-        "lastName": "Parker"
+        "firstName": "Layshia",
+        "lastName": "Clarendon"
     },
     {
         "id": 5,
-        "firstName": "RuPaul",
-        "lastName": "Charles"
-    },
-    {
-        "id": 6,
         "firstName": "Janelle",
         "lastName": "Monae"
     },

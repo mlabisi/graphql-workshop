@@ -12,7 +12,21 @@ const shops = [{
         "shopOwnerId": 1,
         "addressId": 2,
         "menuItemIds": [1, 2, 3,],
-        "hoursId": 2
+    },
+    {
+        "id": 3,
+        "name": "Janelle's Juicy Java House",
+        "shopOwnerId": 5,
+        "addressId": 3,
+        "menuItemIds": [4,5],
+    },
+    {
+        "id": 4,
+        "name": "Hot Shots",
+        "motto": "Never miss a shot!",
+        "shopOwnerId": 4,
+        "addressId": 3,
+        "menuItemIds": [ 6, 7, 8],
     },
    
 ];
