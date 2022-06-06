@@ -44,8 +44,11 @@ const server = new ApolloServer({
 
 
 // to deploy locally:
-server.listen().then(({
-   url
-}) => {
-   console.log(`🚀  Server ready at ${url}`);
-});
+server
+  .listen({
+    port: process.env.PORT ?? 4000,
+    host: process.env.HOST ?? '0.0.0.0',
+  })
+  .then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
