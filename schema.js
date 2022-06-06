@@ -4,8 +4,8 @@ const typeDefs = gql`
     type Query {
         shops: [Shop]
         shopOwners: [ShopOwner]
-        items: [MenuItem]
-        item(name: String, id: ID): MenuItem
+        menuItems: [MenuItem]
+        menuItem(name: String, id: ID): MenuItem
         shop(id:ID, name: String): Shop
         shopOwner(id:ID, firstName: String): ShopOwner
     }
