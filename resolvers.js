@@ -104,6 +104,21 @@ module.exports = {
         shops.push(newShop);
 
         return newShop;
+    },
+    addShopOwner: async (_, {
+        firstName,
+        lastName
+    }, {
+        dataSources
+    }) => {
+        const newOwner = {
+            "id": shopOwners.length + 1,
+            "firstName": firstName,
+            "lastName": lastName
+        };
+        shopOwners.push(newOwner);
+
+        return newOwner;
     }
   },
   Shop: {
