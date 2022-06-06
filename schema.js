@@ -38,6 +38,7 @@ const typeDefs = gql`
         id: ID
         shopOwner: ShopOwner
         name: String!
+        isOpen: Boolean
         motto: String
         address: Address
         menu: [MenuItem]
