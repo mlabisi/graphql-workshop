@@ -10,10 +10,10 @@ module.exports = {
     shops: () => {
         return shops;
     },
-    items: () => {
+    menuItems: () => {
         return menuItems;
     },
-    item: (_, {
+    menuItem: (_, {
         name,
         id
     }) => {
