@@ -13,6 +13,7 @@ const typeDefs = gql`
     type Mutation {
         addMenuItem(name: String!, price: Float): MenuItem
         addShop(name: String, shopOwnerId: Int, streetNumber: String, streetName: String): Shop
+        addShopOwner(firstName: String!, lastName: String): ShopOwner
     }
     type Address {
         id: ID
